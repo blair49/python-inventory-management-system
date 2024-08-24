@@ -5,18 +5,21 @@ class Inventory:
     
     def add_item(self, newItem:Item):
         if newItem:
-            self.items[newItem.name] = newItem
+            newItem.id = len(self.items)
+            self.items[newItem.id] = newItem
     
-    def update_item(self, name:str, quantity:int=None, price:float=None):
-        if self.items[name]:
+    def update_item(self, id:int, name:str=None, quantity:int=None, price:float=None):
+        if self.items[id]:
+            if name is not None:
+                self.items[id].name=name
             if quantity is not None:
-                self.items[name].quantity=quantity
+                self.items[id].quantity=quantity
             if price is not None:
                 self.items[name].price=price
 
-    def remove_item(self, name):
-        if name in self.items:
-            del self.items[name]
+    def remove_item(self, id:int):
+        if id in self.items:
+            del self.items[id]
 
     def low_stock(self, threshold:int):
         print("---------")
