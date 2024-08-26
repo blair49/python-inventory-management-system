@@ -1,4 +1,6 @@
+import json
 from item import Item
+
 class Inventory:
     def __init__(self) -> None:
         self.items = {}
@@ -43,4 +45,19 @@ class Inventory:
         for item in self.items:
             print(self.items[item])
         print("---------")
-        
+
+    def save_to_file(self, filename):
+        with open(filename, "w") as file:
+            json_data = {id:vars(item) for id, item in self.items.items()}
+            json.dump(json_data,file)
+    
+    def load_from_file(self, filename):
+        try:
+            with open(filename, "r") as file:
+                json_data = json.load(file)
+                for item in json_data.values():
+                    item = Item(item["name"], item["quantity"], item["price"], id=item["id"])
+                    self.items[item.id] = item
+        except FileNotFoundError:
+            print(f"{filename} save file not found. Starting with an empty inventory.")
+    

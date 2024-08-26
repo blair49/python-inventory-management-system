@@ -2,6 +2,7 @@ from inventory import Inventory
 from item import Item
 
 def main():
+    json_filename = "inventory.json"
 
     def add_item():
         print("Add a new item")
@@ -75,6 +76,7 @@ def main():
         print(f"Total inventory value: ₹{my_inventory.total_value()}")
 
     my_inventory = Inventory()
+    my_inventory.load_from_file(json_filename)
     print("Inventory Management System CLI")
     while True:
         print("\nWhat would you like to do:")
@@ -82,7 +84,7 @@ def main():
         print("2. Update item")
         print("3. Remove item")
         print("4. View inventory")
-        print("5. Exit")
+        print("5. Save & Exit")
 
         choice = input("Choose an option: ")
         if choice == '1':
@@ -94,6 +96,7 @@ def main():
         elif choice == '4':
             view_inventory()
         elif choice == '5':
+            my_inventory.save_to_file(json_filename)
             print("Thank you!")
             break
         else:
