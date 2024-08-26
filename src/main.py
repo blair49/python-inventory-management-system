@@ -2,25 +2,71 @@ from inventory import Inventory
 from item import Item
 
 def main():
+
     def add_item():
         print("Add a new item")
         name = input("Item name: ")
-        price = float(input("Price per item: "))
-        quantity = int(input("Quantity: "))
+        while True:
+            price = input("Price per item: ")
+            try:
+                price = float(price)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")
+        while True:
+            quantity = input("Quantity: ")
+            try:
+                quantity = int(quantity)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")                
+            
         my_inventory.add_item(Item(name, quantity, price))
         print("Added successfully!")
     
     def update_item():
         print("Update an existing item")
-        id = input("Id of the item to update:")
+        id,name,price,quantity = None, None, None, None
+        while True:
+            id = input("Id of the item to update: ")
+            try:
+                id = int(id)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")
+        
         name = input("Updated name(or leave blank to keep existing): ")
-        price = float(input("Updated price(or leave blank to keep existing): "))
-        quantity = int(input("Updated quantity(or leave blank to keep existing): "))
-        my_inventory.update_item(id, name, price, quantity)
+        while True:
+            price = input("Updated price(or leave blank to keep existing): ")
+            if not len(price): 
+                break
+            try:
+                price = float(price)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")
+        while True:
+            quantity = input("Updated quantity(or leave blank to keep existing): ")
+            if not len(quantity): 
+                break
+            try:
+                quantity = int(quantity)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")
+        
+        my_inventory.update_item(id, name, price=price, quantity=quantity)
         print("Updated successfully!")
     
     def remove_item():
-        id = int(input("Enter id of item to remove"))
+        id=None
+        while True:
+            id = input("Enter id of item to remove: ")
+            try:
+                id = int(id)
+                break
+            except Exception:
+                print("Invalid input!!\nPlease enter a valid number.")
         my_inventory.remove_item(id)
         print("Removed successfully!")
     

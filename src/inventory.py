@@ -10,12 +10,12 @@ class Inventory:
     
     def update_item(self, id:int, name:str=None, quantity:int=None, price:float=None):
         if self.items[id]:
-            if name is not None:
+            if name is not None and len(name):
                 self.items[id].name=name
-            if quantity is not None:
+            if quantity is not None and type(quantity) is int:
                 self.items[id].quantity=quantity
-            if price is not None:
-                self.items[name].price=price
+            if price is not None and type(price) is float:
+                self.items[id].price=price
 
     def remove_item(self, id:int):
         if id in self.items:
